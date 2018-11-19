@@ -11,7 +11,7 @@ const IntroAni = posed.View({
 })
 
 
-export default class App extends React.Component {
+export default class Intro extends React.Component {
 
     static navigationOptions = {
         header: null
@@ -47,8 +47,8 @@ export default class App extends React.Component {
         <View style={{flex:1, backgroundColor:'black'}}>
             <IntroAni style={{flex:1, alignItems:'center', justifyContent:'center'}} pose={this.state.isIntroPlaying ? 'end' : 'start'}>
                 <View style={styles.container}>
-                    <Image style={{width:window.width/3, height:window.height/3, resizeMode:'contain'}} source={require('../assets/Intro/coffeeIntro.png')}/>
-                    <Text style={{color:'white', fontSize:30, fontWeight:'bold', fontFamily:'sans-serif-condensed'}}>KOHI</Text>
+                    <Image style={{width:window.width/4, height:window.height/4, resizeMode:'contain'}} source={require('../assets/Intro/coffeeIntro.png')}/>
+                    <Text style={{color:'white', fontSize:window.height/15, fontWeight:'bold', fontFamily:'sans-serif-condensed'}}>KOHI</Text>
                 </View>
             </IntroAni>
         </View>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         width:window.width/2,
         height:window.height/2,
         alignItems:'center',
-        justifyContent:'space-around',
+        justifyContent:'center',
     },
   });
 

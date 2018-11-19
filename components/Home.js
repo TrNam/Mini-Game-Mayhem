@@ -1,47 +1,43 @@
 import React from 'react';
-import { Font } from 'expo';
-import { Text, View, ImageBackground, Image } from 'react-native';
-import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
+import { Text, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import PixelButton from './PixelButton';
 
+const window = Dimensions.get('window')
 
-export default class App extends React.Component {
-
-    state = {
-        fontLoaded: false,
-    };
+export default class Home extends React.Component {
 
     static navigationOptions = {
         header: null
     }
 
-    async componentWillMount() {
-        await Font.loadAsync({
-            'FFF_Tusj': require('../assets/fonts/FFF_Tusj.ttf'),
-        });
-
-        this.setState({ fontLoaded: true });
-    }
-
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                <ImageBackground
-                    source={require('../assets/coffee-s.jpg')}
-                    style={{ width: '100%', height: '100%' }}
-                    resizeMode = 'contain'
-                    // blurRadius={3}
-                >
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly' }}>
-                        {
-                            this.state.fontLoaded ? (
-                                <Text style={{ color: 'black', fontWeight: 'bold', fontFamily: 'FFF_Tusj', fontSize: 40 }} >
-                                    Hello, world!
-                                </Text>
-                            ) : null
-                        }
-                        <AwesomeButtonRick type='anchor'>Start</AwesomeButtonRick>
+            <View style={{ flex: 1, backgroundColor:'#D2ECF2'}}>
+                {/* <ImageBackground
+                    source={require('../assets/bg/4.png')}
+                    // resizeMode='contain'
+                    style={{width:window.width, height:window.height}}
+                > */}
+                    <View style={{flex:1}}></View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.navigation.navigate('GamesList')
+                            }}
+                        >
+                            <PixelButton
+                                content={'START'}
+                                buttonWidth={window.height/2.5}
+                                buttonHeight={window.height/8}
+                                lightColor={'#F9C2A2'}
+                                darkColor={'#C94900'}
+                                midColor={'#F79256'} 
+                                textSize={window.height/25}
+                                buttonBorderColor={'#89441C'}
+                            />
+                        </TouchableOpacity>
                     </View>
-                </ImageBackground>
+                {/* </ImageBackground> */}
             </View>
         );
     }
