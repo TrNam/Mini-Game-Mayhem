@@ -23,7 +23,7 @@ const RootStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Intro'
+    initialRouteName: 'GamesList'
   }
 )
 

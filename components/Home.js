@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 import PixelButton from './PixelButton';
+import CirclePixel from './CirclePixel';
+import TrianglePixel from './TrianglePixel';
 
 const window = Dimensions.get('window')
 
@@ -13,11 +15,11 @@ export default class Home extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor:'#D2ECF2'}}>
-                {/* <ImageBackground
+                <ImageBackground
                     source={require('../assets/bg/4.png')}
                     // resizeMode='contain'
                     style={{width:window.width, height:window.height}}
-                > */}
+                >
                     <View style={{flex:1}}></View>
                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                         <TouchableOpacity
@@ -37,7 +39,7 @@ export default class Home extends React.Component {
                             />
                         </TouchableOpacity>
                     </View>
-                {/* </ImageBackground> */}
+                </ImageBackground>
             </View>
         );
     }
