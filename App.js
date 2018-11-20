@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Intro from './components/Intro';
 import Options from './components/Options';
 import GamesList from './components/GamesList';
+import Hangman from './screens/Hangman';
 
 
 const RootStack = createStackNavigator(
@@ -20,6 +21,9 @@ const RootStack = createStackNavigator(
     },
     GamesList: {
       screen: GamesList
+    },
+    Hangman: {
+      screen: Hangman
     }
   },
   {

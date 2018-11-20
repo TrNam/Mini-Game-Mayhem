@@ -11,7 +11,7 @@ export default class GamesList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            games:["Tap'pa Tap","Checkers","Tic Tac Toe","Guess the Word"]
+            games:["Tap'pa Tap","Checkers","Tic Tac Toe","Hangman"]
         }
     }
   
@@ -28,7 +28,12 @@ export default class GamesList extends React.Component {
                         <View key={index}>
                             <TouchableOpacity
                                 onPress={() => {
-                                    this.props.navigation.navigate('Options')
+                                    if (item === 'Hangman'){
+                                        this.props.navigation.navigate('Hangman');
+                                    } else {
+                                        this.props.navigation.navigate('Options');
+                                    }
+                                    
                                 }}
                             >
                                 <PixelButton
