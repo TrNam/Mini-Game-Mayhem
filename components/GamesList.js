@@ -1,6 +1,6 @@
 import React from 'react';
 import posed from 'react-native-pose';
-import { StyleSheet, Text, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Dimensions, TouchableOpacity, Image } from 'react-native';
 import PixelButton from './PixelButton';
 import CirclePixel from './CirclePixel';
 import TrianglePixel from './TrianglePixel';
@@ -33,8 +33,17 @@ export default class GamesList extends React.Component {
         header: null
     }
 
+
     render() {
         const { navigate } = this.props.navigation
+        closeEverything = () => {
+            this.setState({
+                isTapPressed: false,
+                isCheckerPressed: false,
+                isTicPressed: false,
+                isHangPressed: false,
+            })
+        }
         return(
             <ImageBackground
                 source={require('../assets/bg/4.png')}
@@ -57,20 +66,24 @@ export default class GamesList extends React.Component {
                             <TouchableOpacity
                                 onPress={() => {
                                     if (item === "Tap'pa Tap") {
+                                        closeEverything();
                                         this.setState({
-                                            isTapPressed: !this.state.isTapPressed
+                                            isTapPressed: !this.state.isTapPressed,
                                         })
                                     } else if (item === "Checkers") {
+                                        closeEverything();
                                         this.setState({
-                                            isCheckerPressed: !this.state.isCheckerPressed
+                                            isCheckerPressed: !this.state.isCheckerPressed,
                                         })
                                     } else if (item === "Tic Tac Toe") {
+                                        closeEverything();
                                         this.setState({
-                                            isTicPressed: !this.state.isTicPressed
+                                            isTicPressed: !this.state.isTicPressed,
                                         })
                                     } else {
+                                        closeEverything();
                                         this.setState({
-                                            isHangPressed: !this.state.isHangPressed
+                                            isHangPressed: !this.state.isHangPressed,
                                         })
                                     }
                                 }}
@@ -90,7 +103,11 @@ export default class GamesList extends React.Component {
                                 style={[styles.dropDown, item === "Tap'pa Tap" || item === "Checkers" ? styles.down : styles.up]}
                                 pose={currentGame ? 'end' : 'start'}
                             >
-                                <View style={{flex:1}}></View>
+                                <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                                    {/* <View style={{width:'80%', height:'90%'}}> */}
+                                        <Image style={{height:'90%',resizeMode:'contain'}} source={require('../assets/GIF/Hangman.gif')}/>
+                                    {/* </View> */}
+                                </View>
                                 <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                     
                                     <View style={{position:'absolute'}}>
@@ -104,12 +121,16 @@ export default class GamesList extends React.Component {
                                         <TouchableOpacity
                                             onPress = {() => {
                                                 if (item === "Tap'pa Tap") {
+                                                    closeEverything()
                                                     navigate('Options')
                                                 } else if (item === "Checkers") {
+                                                    closeEverything()
                                                     navigate('Options')
                                                 } else if (item === "Tic Tac Toe") {
+                                                    closeEverything()
                                                     navigate('Options')
                                                 } else {
+                                                    closeEverything()
                                                     navigate('Options')
                                                 }
                                             }}
