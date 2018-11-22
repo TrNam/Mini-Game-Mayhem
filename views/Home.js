@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
-import PixelButton from './PixelButton';
-import CirclePixel from './CirclePixel';
-import TrianglePixel from './TrianglePixel';
+import PixelButton from '../components/PixelButton';
 
 const window = Dimensions.get('window')
 

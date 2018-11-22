@@ -1,18 +1,26 @@
 import React from 'react';
 import posed from 'react-native-pose';
 import { StyleSheet, Text, View, ImageBackground, Dimensions, TouchableOpacity, Image } from 'react-native';
-import PixelButton from './PixelButton';
-import CirclePixel from './CirclePixel';
-import TrianglePixel from './TrianglePixel';
+import PixelButton from '../components/PixelButton';
+import CirclePixel from '../components/CirclePixel';
+import TrianglePixel from '../components/TrianglePixel';
 
 const window = Dimensions.get('window')
 
+
+
 const DropDown = posed.View({
     start: {height: 0, borderWidth: 0, transition:{duration:500}},
-    end: {height:window.height/4, borderWidth:window.height/90, transition:{duration:500}}
+    end: {height:400, borderWidth: window.height/90, transition:{duration:500}}
 })
 
-
+const TheGame = posed.View({
+    selected: {y:window.height/10, transition:{duration:350}},
+    tap: {y: window.height/10,transition:{duration:250}},
+    tic: {y: window.height/10 + window.height/8 + window.height/10, transition:{duration:350}},
+    checker: {y: (window.height/10 + (window.height/8)*2 + (window.height/10)*2),transition:{duration:500}},
+    hang: {y: (window.height/10 + (window.height/8)*3 + (window.height/10)*3),transition:{duration:650}}
+})
 
 
 export default class GamesList extends React.Component {
@@ -21,10 +29,18 @@ export default class GamesList extends React.Component {
         super(props);
         this.state = {
             games:["Tap'pa Tap","Checkers","Tic Tac Toe","Hangman"],
-            isTapPressed: false,
-            isCheckerPressed: false,
-            isTicPressed: false,
-            isHangPressed: false,
+            isTapPressed: true,
+            isCheckerPressed: true,
+            isTicPressed: true,
+            isHangPressed: true,
+            isDropDownTapPressed: false,
+            isDropDownCheckerPressed: false,
+            isDropDownTicPressed: false,
+            isDropDownHangPressed: false,
+            isTapMoved: false,
+            isTicMoved: false,
+            isHangMoved: false,
+            isCheckerMoved: false,
         }
     }
   
@@ -54,36 +70,68 @@ export default class GamesList extends React.Component {
                 {this.state.games.map((item, index) => {
                     if (item === "Tap'pa Tap") {
                         currentGame = this.state.isTapPressed
+                        currentDropDown = this.state.isDropDownTapPressed
+                        currentMoved = 'tap'
+                        test = this.state.isTapMoved
                     } else if (item === "Checkers") {
                         currentGame = this.state.isCheckerPressed
+                        currentDropDown = this.state.isDropDownCheckerPressed
+                        currentMoved = 'checker'
+                        test = this.state.isCheckerMoved
                     } else if (item === "Tic Tac Toe") {
                         currentGame = this.state.isTicPressed
+                        currentDropDown = this.state.isDropDownTicPressed
+                        currentMoved = 'tic'
+                        test = this.state.isTicMoved
                     } else if (item === "Hangman") {
                         currentGame = this.state.isHangPressed
+                        currentDropDown = this.state.isDropDownHangPressed
+                        currentMoved = 'hang'
+                        test = this.state.isHangMoved
                     }
                     return (
-                        <View key={index}>
+                        <TheGame 
+                        key={index} 
+                        style={styles.theGame}
+                        pose={currentDropDown ? 'selected' : currentMoved}
+                        >
+                        {currentGame == true && 
+                        <View>
                             <TouchableOpacity
                                 onPress={() => {
                                     if (item === "Tap'pa Tap") {
-                                        closeEverything();
-                                        this.setState({
-                                            isTapPressed: !this.state.isTapPressed,
-                                        })
-                                    } else if (item === "Checkers") {
-                                        closeEverything();
                                         this.setState({
                                             isCheckerPressed: !this.state.isCheckerPressed,
-                                        })
-                                    } else if (item === "Tic Tac Toe") {
-                                        closeEverything();
-                                        this.setState({
                                             isTicPressed: !this.state.isTicPressed,
+                                            isHangPressed: !this.state.isHangPressed,
+                                            isDropDownTapPressed: !this.state.isDropDownTapPressed,
+                                            isTapMoved: !this.state.isTapMoved
                                         })
-                                    } else {
-                                        closeEverything();
+                                        
+                                    } else if (item === "Checkers") {
                                         this.setState({
                                             isHangPressed: !this.state.isHangPressed,
+                                            isTapPressed: !this.state.isTapPressed,
+                                            isTicPressed: !this.state.isTicPressed,
+                                            isDropDownCheckerPressed: !this.state.isDropDownCheckerPressed,
+                                            isCheckerMoved: !this.state.isCheckerMoved
+                                        })
+                                        console.log(currentGame)
+                                    } else if (item === "Tic Tac Toe") {
+                                        this.setState({
+                                            isHangPressed: !this.state.isHangPressed,
+                                            isCheckerPressed: !this.state.isCheckerPressed,
+                                            isTapPressed: !this.state.isTapPressed,
+                                            isDropDownTicPressed: !this.state.isDropDownTicPressed,
+                                            isTicMoved: !this.state.isTicMoved
+                                        })
+                                    } else {
+                                        this.setState({
+                                            isCheckerPressed: !this.state.isCheckerPressed,
+                                            isTapPressed: !this.state.isTapPressed,
+                                            isTicPressed: !this.state.isTicPressed,
+                                            isDropDownHangPressed: !this.state.isDropDownHangPressed,
+                                            isHangMoved: !this.state.isHangMoved
                                         })
                                     }
                                 }}
@@ -99,15 +147,17 @@ export default class GamesList extends React.Component {
                                     buttonBorderColor={'#89441C'}
                                 />
                             </TouchableOpacity>
-                            <DropDown 
-                                style={[styles.dropDown, item === "Tap'pa Tap" || item === "Checkers" ? styles.down : styles.up]}
-                                pose={currentGame ? 'end' : 'start'}
+                            
+                            <View
+                                style={styles.dropDown}
+                                // pose={currentDropDown ? 'end' : 'start'}
                             >
-                                <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                    {/* <View style={{width:'80%', height:'90%'}}> */}
+                                {currentDropDown == true &&
+                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                         <Image style={{height:'90%',resizeMode:'contain'}} source={require('../assets/GIF/Hangman.gif')}/>
-                                    {/* </View> */}
-                                </View>
+                                    </View>
+                                }
+                                {currentDropDown == true &&
                                 <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                     
                                     <View style={{position:'absolute'}}>
@@ -146,8 +196,10 @@ export default class GamesList extends React.Component {
                                     </View>
                                     
                                 </View>
-                            </DropDown>
-                        </View>
+                                }
+                            </View>
+                        </View>}
+                        </TheGame>
                     )
                 })}
             </View>
@@ -160,8 +212,10 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         alignItems:'center',
-        justifyContent:'space-evenly',
-        // backgroundColor:'#D2ECF2',
+        // justifyContent:'space-evenly',
+    },
+    theGame: {
+        position:'absolute'
     },
     dropDown: {
         position:'absolute',
@@ -173,12 +227,19 @@ const styles = StyleSheet.create({
         borderBottomColor:'#932F86',
         borderRightColor:'#932F86',
         borderLeftColor:'#FFCCF8',
-        flexDirection:'row'
-    },
-    down: {
+        flexDirection:'row',
         top:window.height/8,
     },
-    up: {
-        bottom:window.height/8,
+    tap: {
+        top:10
+    },
+    tic: {
+        top:100
+    },
+    checker: {
+        bottom:100
+    },
+    hang: {
+        bottom:10
     }
 })
