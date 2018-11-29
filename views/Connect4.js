@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ListView, StyleSheet, StatusBar, TextInput, Alert,TouchableHighlight, Image , Dimensions} from 'react-native';
+import { Text, View, ListView, StyleSheet, ImageBackground, StatusBar, TextInput, Alert,TouchableHighlight, Image , Dimensions} from 'react-native';
 
 const cols =[[],[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
 	[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
@@ -234,8 +234,12 @@ export default class Connect4 extends React.Component {
 	render() {
 
 		return (
-
+			
 			<View style ={styles.container}>
+				<ImageBackground
+                    source={require('../assets/bg/4.png')}
+                    style={{width:window.width, height:window.height}}
+            	/>
 				<StatusBar hidden/>
 				<View style={styles.col}>
 					<ListView
