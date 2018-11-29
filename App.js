@@ -5,6 +5,7 @@ import Home from './views/Home';
 import Intro from './views/Intro';
 import Options from './views/Options';
 import GamesList from './views/GamesList';
+import TicTacToe from './views/TicTacToe/Landing';
 
 
 const RootStack = createStackNavigator(
@@ -20,10 +21,13 @@ const RootStack = createStackNavigator(
     },
     GamesList: {
       screen: GamesList
+    },
+    TicTacToe: {
+      screen: TicTacToe
     }
   },
   {
-    initialRouteName: 'GamesList'
+    initialRouteName: 'TicTacToe'
   }
 )
 
