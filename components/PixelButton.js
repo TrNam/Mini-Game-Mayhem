@@ -4,9 +4,7 @@ import { Text, View, StyleSheet, Dimensions} from 'react-native';
 
 const window = Dimensions.get('window')
 const _BORDER_BUTTON = window.height/45;
-// const _DARK = '#46B1C9';
-// const _MIDDLE = '#85BAC6';
-// const _LIGHT = '#D2ECF2';
+const _CORNERS = window.height/90;
 
 export default class PixelButton extends React.Component {
     static propTypes = {
