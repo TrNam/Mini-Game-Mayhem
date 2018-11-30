@@ -116,7 +116,6 @@ export default class GamesList extends React.Component {
                                             isDropDownCheckerPressed: !this.state.isDropDownCheckerPressed,
                                             isCheckerMoved: !this.state.isCheckerMoved
                                         })
-                                        console.log(currentGame)
                                     } else if (item === "Tic Tac Toe") {
                                         this.setState({
                                             isHangPressed: !this.state.isHangPressed,
@@ -147,40 +146,26 @@ export default class GamesList extends React.Component {
                                     buttonBorderColor={'#89441C'}
                                 />
                             </TouchableOpacity>
-                            
-                            <View
-                                style={styles.dropDown}
-                                // pose={currentDropDown ? 'end' : 'start'}
-                            >
-                                {currentDropDown == true &&
-                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                        <Image style={{height:'90%',resizeMode:'contain'}} source={require('../assets/GIF/Hangman.gif')}/>
-                                    </View>
-                                }
-                                {currentDropDown == true &&
-                                <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                            {currentDropDown == true &&
+                                <View style={{position:'absolute', right:50, top:40, alignItems:'center', justifyContent:'center'}}>
                                     
                                     <View style={{position:'absolute'}}>
                                         <CirclePixel
                                             cirRadius={window.width/8}
-                                            cirColor={'#F79256'}
-                                            shadowColor={'#C94900'}
+                                            cirColor={'#E07BD2'}
+                                            shadowColor={'#932F86'}
                                         />
                                     </View>
                                     <View style={{position:'absolute'}}>
                                         <TouchableOpacity
                                             onPress = {() => {
                                                 if (item === "Tap'pa Tap") {
-                                                    closeEverything()
                                                     navigate('Options')
                                                 } else if (item === "Checkers") {
-                                                    closeEverything()
                                                     navigate('Options')
                                                 } else if (item === "Tic Tac Toe") {
-                                                    closeEverything()
                                                     navigate('Options')
                                                 } else {
-                                                    closeEverything()
                                                     navigate('Options')
                                                 }
                                             }}
@@ -188,16 +173,25 @@ export default class GamesList extends React.Component {
                                             <TrianglePixel
                                                 triWidth={window.width/18}
                                                 triHeight={window.width/14}
-                                                triColor={'#F9C2A2'}
+                                                triColor={'#FFCCF8'}
                                                 triDir={'right'}
-                                                shadowColor={'#C94900'}
+                                                shadowColor={'#932F86'}
                                             />
                                         </TouchableOpacity>
                                     </View>
                                     
                                 </View>
                                 }
-                            </View>
+                            <DropDown
+                                style={styles.dropDown}
+                                pose={currentDropDown ? 'end' : 'start'}
+                            >
+                                {currentDropDown == true &&
+                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                                        <Image style={{height:'90%',resizeMode:'contain'}} source={require('../assets/GIF/Hangman.gif')}/>
+                                    </View>
+                                }
+                            </DropDown>
                         </View>}
                         </TheGame>
                     )
@@ -218,17 +212,16 @@ const styles = StyleSheet.create({
         position:'absolute'
     },
     dropDown: {
-        position:'absolute',
         backgroundColor:'#E07BD2',
         width:window.height/2,
-        zIndex:1,
+        height:window.height/1.4,
         borderRadius:10,
         borderTopColor:'#FFCCF8',
         borderBottomColor:'#932F86',
         borderRightColor:'#932F86',
         borderLeftColor:'#FFCCF8',
         flexDirection:'row',
-        top:window.height/8,
+        borderWidth:window.height/90,
     },
     tap: {
         top:10
