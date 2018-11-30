@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 6204,
+  "expoServerNgrokUrl": "https://y8-73i.jakobg.mini-game-mayhem.exp.direct",
+  "packagerNgrokUrl": "https://packager.y8-73i.jakobg.mini-game-mayhem.exp.direct",
+  "ngrokPid": 22572,
   "devToolsPort": 19002
 }

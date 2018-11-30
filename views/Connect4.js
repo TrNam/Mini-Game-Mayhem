@@ -234,13 +234,14 @@ export default class Connect4 extends React.Component {
 	render() {
 
 		return (
-			
-			<View style ={styles.container}>
-				<ImageBackground
+			<ImageBackground
                     source={require('../assets/bg/4.png')}
                     style={{width:window.width, height:window.height}}
-            	/>
+            	>
+			<View style ={styles.container}>
+				
 				<StatusBar hidden/>
+				
 				<View style={styles.col}>
 					<ListView
 					key={this.state.turn}
@@ -332,15 +333,17 @@ export default class Connect4 extends React.Component {
 	                	</View>
 					</TouchableHighlight>
 				</View>
+
 			</View>
+			</ImageBackground>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	container:{
-		flex:1,
-		backgroundColor:'#f00',
+		width:Dimensions.get('window').width,
+		height:Dimensions.get('window').height,
 		alignItems:'center',
 		justifyContent:'center',
 		flexDirection:'row'

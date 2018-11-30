@@ -1,12 +1,14 @@
 import React from 'react';
 import { Text, View, ImageBackground, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+
 import Home from './views/Home';
 import Intro from './views/Intro';
 import Options from './views/Options';
 import GamesList from './views/GamesList';
 import TicTacToe from './views/TicTacToe/Landing';
 import Connect4 from './views/Connect4';
+import Hangman from './screens/Hangman';
 
 const RootStack = createStackNavigator(
   {
@@ -27,10 +29,13 @@ const RootStack = createStackNavigator(
     },
     TicTacToe: {
       screen: TicTacToe
+    },
+    Hangman: {
+      screen: Hangman
     }
   },
   {
-    initialRouteName: 'Intro'
+    initialRouteName: 'Connect4'
   }
 )
 
