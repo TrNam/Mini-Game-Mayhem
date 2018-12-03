@@ -13,18 +13,20 @@ const cols =[[],[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'whi
 
 
 export default class Connect4 extends React.Component {
-	
 	static navigationOptions = {
-        title:'Connect4',
-        headerStyle:{
-            backgroundColor:'#f4511e',
-            //height:Dimensions.get('window').height*0.03,
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle:{
-            fontWeight:'bold',
-        },
-    };
+    header: null
+  }
+	// static navigationOptions = {
+ //        title:'Connect4',
+ //        headerStyle:{
+ //            backgroundColor:'#f4511e',
+ //            //height:Dimensions.get('window').height*0.03,
+ //        },
+ //        headerTintColor: '#fff',
+ //        headerTitleStyle:{
+ //            fontWeight:'bold',
+ //        },
+ //    };
 
     constructor() {
     	super();
@@ -139,7 +141,6 @@ export default class Connect4 extends React.Component {
     	let s3 = true;
     	let i = 1
     	for(let x=col-1; x > 0 && x > col-4;x--){
-    		//console.log(x)
     		if(cols[x][row-1].color == color && s1 == true){
     			left = left+1;
     		}
@@ -162,6 +163,7 @@ export default class Connect4 extends React.Component {
 	    			s3 = false;
 	    		}
 		    }
+		    i++;
     	}
     	s1 = true;
     	s2 = true;
@@ -194,7 +196,6 @@ export default class Connect4 extends React.Component {
     	}
     	s1 = true;
     	for(let x=1; x < 4;x++){
-    		//console.log(cols[col][row-1+x].color)
     		if(row-1+x < 6){
 	    		if(cols[col][row-1+x].color == color && s1 == true){
 	    			down = down + 1;
@@ -342,6 +343,7 @@ export default class Connect4 extends React.Component {
 
 const styles = StyleSheet.create({
 	container:{
+		marginBottom:50,
 		width:Dimensions.get('window').width,
 		height:Dimensions.get('window').height,
 		alignItems:'center',
@@ -354,13 +356,14 @@ const styles = StyleSheet.create({
 		borderColor:'black',
 		backgroundColor:'blue',
 		flexDirection:'column',
-		height:Dimensions.get('window').width+4
+		height:Dimensions.get('window').width+29
 	},
 	row:{
 		height:Dimensions.get('window').width/7,
 		borderWidth:2,
 		borderColor:'black',
 		flexDirection:'column',
-		backgroundColor:'white'
+		backgroundColor:'white',
+		top:0,
 	},
 })

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, ImageBackground, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-
 import Home from './views/Home';
 import Intro from './views/Intro';
 import Options from './views/Options';
@@ -35,7 +34,7 @@ const RootStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Connect4'
+    initialRouteName: 'Intro'
   }
 )
 

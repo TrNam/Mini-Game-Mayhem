@@ -1,9 +1,7 @@
 import React from 'react';
 TextInput
 import { StyleSheet, Text, TextInput, View, Button, TouchableHighlight, Alert, TouchableOpacity, Dimensions } from 'react-native';
-import {
-  StackNavigator, NavigationActions
-} from 'react-navigation';
+import {createStackNavigator, NavigationActions} from 'react-navigation';
 import { Svg } from 'expo';
 import PixelButton from '../components/PixelButton';
 const {
@@ -234,7 +232,7 @@ class HomeScreen extends React.Component {
   }
 }
 
-const HangmanGame = StackNavigator({
+const HangmanGame = createStackNavigator({
   HomeRoute: { screen: HomeScreen },
   GameRoute: { screen: GameScreen }
 });
