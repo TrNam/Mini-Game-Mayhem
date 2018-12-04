@@ -164,9 +164,9 @@ export default class GamesList extends React.Component {
                                                 } else if (item === "Checkers") {
                                                     navigate('Options')
                                                 } else if (item === "Tic Tac Toe") {
-                                                    navigate('Options')
+                                                    navigate('TicTacToe')
                                                 } else {
-                                                    navigate('Options')
+                                                    navigate('Hangman')
                                                 }
                                             }}
                                         >
