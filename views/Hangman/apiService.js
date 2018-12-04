@@ -96,25 +96,3 @@ module.exports = {
     ApiService,
 }
 
-// export const client = {
-//   rendevous: {
-//     client: axios.create({
-//       baseURL: 'http://ec2-34-221-16-108.us-west-2.compute.amazonaws.com',
-//       responseType: 'json'
-//     })
-//   },
-//   songkick: {
-//     client: axios.create({
-//       baseURL: 'http://api.songkick.com/api/3.0',
-//       responseType: 'json'
-//     })
-//   },
-//   googleMaps: {
-//     client: axios.create({
-//       baseURL: 'https://maps.googleapis.com/maps/api/geocode',
-//       responseType: 'json'
-//     })
-
-//   }
-// }
-

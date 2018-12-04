@@ -1,7 +1,8 @@
 import React from 'react';
 import { Svg } from 'expo';
-import { Text, View, ImageBackground, Image, Button, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, StatusBar } from 'react-native';
+import { Alert, Text, View, ImageBackground, Image, Button, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, StatusBar } from 'react-native';
 import { ApiService } from './apiService';
+import { Font } from 'expo'
 const {
     Circle,
     G,
@@ -21,36 +22,93 @@ export default class HangMan extends React.Component {
             apiService: null,
             letter: '',
             theWord: '',
+            hangman: '',
             wrong: 0,
+            correctLettersGuessed: [],
+            hangmanString: null,
+            fontLoaded: false,
         }
 
     }
 
-    componentWillMount = () => {
+    componentWillMount = async () => {
+        await Font.loadAsync({
+            'munro': require('../../assets/fonts/munro.ttf'),
+        });
+
+        this.setState({ fontLoaded: true });
+
         const apiService = new ApiService();
-        // console.log(apiService);
+
         apiService.newGame()
             .then((result) => {
                 this.setState({
                     apiService,
-                })
+
+                }, () => {
+                    this.setState({
+                        hangmanString: this.state.apiService.hangman,
+                    })
+                    this.getSolution().then((theWord) => {
+                        this.setState({
+                            theWord
+                        });
+                    })
+                });
             })
     }
 
-    componentDidMount = () => {
-        console.log(this.state);
-    }
-
     guessLetter = (letter) => {
+        letter = letter.toLowerCase()
         if (!letter.trim() == "") {
             if (letter.length === 1 && letter.match(/[a-z]/i)) {
                 this.state.apiService.guessLetter(letter)
                     .then((result) => {
                         console.log(result);
-                        if (!result.correct){
+                        if (!result.correct) {
                             this.setState({
                                 wrong: this.state.wrong += 1,
-                            }, console.log("wrong ", this.state.wrong))
+                            }, () => {
+                                if (this.state.wrong > 4) {
+                                    this.getSolution()
+                                        .then((result) => {
+                                            Alert.alert(
+                                                'You Lost',
+                                                `The word was ${result}`,
+                                                [
+                                                    { text: 'Exit', onPress: () => console.log('OK Pressed') },
+                                                ],
+                                                { cancelable: false }
+                                            )
+                                        });
+                                }
+                            })
+                        } else {
+                            if (this.state.correctLettersGuessed.includes(letter)) {
+                                alert('You have guessed this letter!')
+                            } else {
+                                let display = this.state.hangmanString.split('');
+                                let guess = result.hangman.split('');
+
+                                for (var i = 0; i < display.length; i++) {
+                                    if (guess[i] != '_') {
+                                        display[i] = guess[i];
+                                    }
+
+                                    // if (i == display.length - 1) {
+
+                                    // }
+                                }
+
+                                this.setState({
+                                    hangmanString: display.join(''),
+                                })
+
+                                console.log('Adding ', letter, ' to state');
+                                this.setState({
+                                    correctLettersGuessed: [...this.state.correctLettersGuessed, letter]
+                                });
+                            }
                         }
                     })
             }
@@ -60,19 +118,24 @@ export default class HangMan extends React.Component {
     }
 
     getSolution = () => {
-        this.state.apiService.getSolution()
-            .then((result) => {
-                console.log(result)
-                return result.solution;
-            });
+        return new Promise((resolve, reject) => {
+            this.state.apiService.getSolution()
+                .then((result) => {
+                    console.log(result.solution);
+                    resolve(result.solution);
+                })
+
+        })
     }
 
     getHint = () => {
-        this.state.apiService.getHint()
-            .then((result) => {
-                console.log(result);
-                return result
-            });
+        return new Promise((resolve, reject) => {
+            this.state.apiService.getHint()
+                .then((result) => {
+                    // console.log(result.hint);
+                    resolve(result.hint)
+                });
+        })
     }
 
 
@@ -89,10 +152,12 @@ export default class HangMan extends React.Component {
             <KeyboardAvoidingView style={{ ...StyleSheet.absoluteFillObject }}>
                 <StatusBar hidden />
                 <View style={{ backgroundColor: 'white', flex: 2 }}>
-                    <View style={styles.header}><Text>HANGMAN</Text></View>
+                    <View style={styles.header}>
+                    {this.state.fontLoaded && <Text style={{fontFamily:'munro', fontSize: 30}}>HANGMAN</Text>}
+                    </View>
 
                     <View style={styles.hangmanArea}>
-                        <Svg version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" class="svg-content" width="200" height="250">
+                        <Svg style={{ marginTop: 80, }} version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" class="svg-content" width="200" height="250">
                             <Rect fill="#053544" width="10" height="400" x="20" y="0" />
                             <Rect fill="#053544" width="300" height="10" x="20" y="0" />
                             <Rect fill="#053544" width="300" height="10" x="0" y="400" />
@@ -105,9 +170,11 @@ export default class HangMan extends React.Component {
 
 
                     </View>
-                    <View style={styles.wordArea}>
+                    {this.state.fontLoaded && <View style={styles.wordArea}>
 
-                    </View>
+                        <Text style={{ fontFamily: 'munro', fontSize: 30, letterSpacing: 10 }}>{this.state.hangmanString}</Text>
+
+                    </View>}
 
 
                 </View>
@@ -134,11 +201,11 @@ export default class HangMan extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.footerButtonContainer}>
-                        <TouchableOpacity style={styles.buttonStyle} onPress={() => this.getSolution()}>
+                        <TouchableOpacity style={styles.buttonStyle} onPress={() => alert(this.state.theWord)}>
                             <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>Get Solution</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.buttonStyle} onPress={() => this.getHint()}>
+                        <TouchableOpacity style={styles.buttonStyle} onPress={() => { this.getHint().then(result => { alert(result) }) }}>
                             <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>Get Hint</Text>
                         </TouchableOpacity>
                     </View>
@@ -153,15 +220,17 @@ export default class HangMan extends React.Component {
 const styles = StyleSheet.create({
     header: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     hangmanArea: {
         flex: 4,
         alignItems: 'center',
-        backgroundColor: 'dodgerblue',
     },
     wordArea: {
         flex: 2,
-        backgroundColor: 'orange',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     footerButtonContainer: {
         flex: 1,
@@ -195,6 +264,7 @@ const styles = StyleSheet.create({
 
     bottomHalf: {
         flex: 1,
+        backgroundColor: 'white',
     }
 });
 

@@ -12,7 +12,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "emulator": "expo start --localhost --android",
+    "emulator": "expo start --localhost --android"
   },
   "dependencies": {
     "axios": "^0.18.0",
