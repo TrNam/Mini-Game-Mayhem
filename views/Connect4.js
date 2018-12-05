@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, ListView, StyleSheet, ImageBackground, StatusBar, TextInput, Alert,TouchableHighlight, Image , Dimensions} from 'react-native';
+import { Alert, Text, View, ListView, StyleSheet, ImageBackground, StatusBar, TextInput, TouchableHighlight, Image , Dimensions} from 'react-native';
+import SweetAlert from 'react-native-sweet-alert';
 
 const cols =[[],[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
 	[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
@@ -37,6 +38,7 @@ export default class Connect4 extends React.Component {
             c5:6,
             c6:6,
             c7:6,
+            Ai:false,
         }
         this.renderRow = this.renderRow.bind(this); 
     }
@@ -112,7 +114,49 @@ export default class Connect4 extends React.Component {
 	    	})
 	    	this.checkWinner(col,this.state.c7)
 	    }
+
+	    if(this.state.Ai == true && this.state.turn==true){
+	    	this.setState({
+	    		turn:!this.state.turn,
+	    	}, () => {
+			    console.log(this.state.turn);
+			    this.Drop((0.51 + Math.random() * (6.98)).toFixed(0))
+			});
+	    }
     	
+    }
+
+    reset(home){
+    	cols =[[],[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
+			[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
+			[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
+			[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
+			[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
+			[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
+			[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}]]
+
+		this.setState({
+	    	DataSource1: this.state.DataSource1.cloneWithRows(cols[1]),
+            DataSource2: this.state.DataSource2.cloneWithRows(cols[2]),
+            DataSource3: this.state.DataSource3.cloneWithRows(cols[3]),
+            DataSource4: this.state.DataSource4.cloneWithRows(cols[4]),
+            DataSource5: this.state.DataSource5.cloneWithRows(cols[5]),
+            DataSource6: this.state.DataSource6.cloneWithRows(cols[6]),
+            DataSource7: this.state.DataSource7.cloneWithRows(cols[7]),
+            turn:true,
+            c1:6,
+            c2:6,
+            c3:6,
+            c4:6,
+            c5:6,
+            c6:6,
+            c7:6,
+            Ai:false,
+	    })
+		if(home == 2){
+			this.props.navigation.navigate('Home')
+		}
+
     }
 
     checkWinner(col, row){
@@ -193,16 +237,16 @@ export default class Connect4 extends React.Component {
 	    		}
 	    	}
     	}
-    	console.log(left+right)
-    	console.log(ul+dr)
-    	console.log(ur+dl)
-    	console.log(down)
     	if(left+right > 2 || ul+dr > 2 || ur+dl >2 || down >2){
-    		console.log("winner")
-    		console.log(color)
-    	}
-    	else{
-    		console.log("no winner")
+    		Alert.alert(
+			'Winner!!',
+			`${color} has won. Do you want to play again?`,
+			[
+				{text: 'Home', onPress: () => this.reset(2)},
+				{text: 'Play again', onPress: () => this.reset(1)},
+			],
+			{ cancelable: false }
+			)
     	}
     }
 
