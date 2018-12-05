@@ -16,18 +16,6 @@ export default class Connect4 extends React.Component {
 	static navigationOptions = {
     header: null
   }
-	// static navigationOptions = {
- //        title:'Connect4',
- //        headerStyle:{
- //            backgroundColor:'#f4511e',
- //            //height:Dimensions.get('window').height*0.03,
- //        },
- //        headerTintColor: '#fff',
- //        headerTitleStyle:{
- //            fontWeight:'bold',
- //        },
- //    };
-
     constructor() {
     	super();
         const ds = new ListView.DataSource({
