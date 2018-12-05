@@ -25,11 +25,17 @@ export default class HangMan extends React.Component {
             hangman: '',
             wrong: 0,
             correctLettersGuessed: [],
+            incorrectLettersGuessed: [],
             hangmanString: null,
             fontLoaded: false,
         }
 
     }
+
+    goToMain = () =>{
+        this.props.navigation.navigate('Home');
+    }
+    
 
     componentWillMount = async () => {
         await Font.loadAsync({
@@ -66,23 +72,31 @@ export default class HangMan extends React.Component {
                     .then((result) => {
                         console.log(result);
                         if (!result.correct) {
-                            this.setState({
-                                wrong: this.state.wrong += 1,
-                            }, () => {
-                                if (this.state.wrong > 4) {
-                                    this.getSolution()
-                                        .then((result) => {
-                                            Alert.alert(
-                                                'You Lost',
-                                                `The word was ${result}`,
-                                                [
-                                                    { text: 'Exit', onPress: () => console.log('OK Pressed') },
-                                                ],
-                                                { cancelable: false }
-                                            )
-                                        });
-                                }
-                            })
+                            if (this.state.incorrectLettersGuessed.includes(letter)) {
+                                alert('You have guessed this letter!')
+                            } else {
+                                this.setState({
+                                    incorrectLettersGuessed: [...this.state.incorrectLettersGuessed, letter]
+                                });
+                                this.setState({
+                                    wrong: this.state.wrong += 1,
+                                }, () => {
+                                    if (this.state.wrong > 4) {
+                                        this.getSolution()
+                                            .then((result) => {
+                                                Alert.alert(
+                                                    'You Lost',
+                                                    `The word was ${result}`,
+                                                    [
+                                                        { text: 'Exit', onPress: () => this.goToMain() },
+                                                    ],
+                                                    { cancelable: false }
+                                                )
+                                            });
+                                    }
+                                })
+                            }
+
                         } else {
                             if (this.state.correctLettersGuessed.includes(letter)) {
                                 alert('You have guessed this letter!')
@@ -102,7 +116,22 @@ export default class HangMan extends React.Component {
 
                                 this.setState({
                                     hangmanString: display.join(''),
+                                }, () => {
+                                    if (!display.includes('_')) {
+                                        this.getSolution()
+                                            .then((result) => {
+                                                Alert.alert(
+                                                    'You Won',
+                                                    `The word was ${result}`,
+                                                    [
+                                                        { text: 'Exit', onPress: () => this.goToMain() },
+                                                    ],
+                                                    { cancelable: false }
+                                                )
+                                            })
+                                    }
                                 })
+
 
                                 console.log('Adding ', letter, ' to state');
                                 this.setState({
@@ -149,11 +178,11 @@ export default class HangMan extends React.Component {
             <Line x1="250" y1="250" x2="270" y2="300" stroke="#ecd2b7" stroke-Linecap="round" strokeWidth="10" id="legRight" /></G>
 
         return (
-            <KeyboardAvoidingView style={{ ...StyleSheet.absoluteFillObject }}>
+            <View style={{ ...StyleSheet.absoluteFillObject }}>
                 <StatusBar hidden />
                 <View style={{ backgroundColor: 'white', flex: 2 }}>
                     <View style={styles.header}>
-                    {this.state.fontLoaded && <Text style={{fontFamily:'munro', fontSize: 30}}>HANGMAN</Text>}
+                        {this.state.fontLoaded && <Text style={{ fontFamily: 'munro', fontSize: 30 }}>HANGMAN</Text>}
                     </View>
 
                     <View style={styles.hangmanArea}>
@@ -179,7 +208,7 @@ export default class HangMan extends React.Component {
 
                 </View>
                 <View style={styles.bottomHalf}>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }} behavior="padding" enabled>
                         <TextInput
                             maxLength={1}
                             onChangeText={(letter) => this.setState({ letter })}
@@ -199,7 +228,7 @@ export default class HangMan extends React.Component {
                         <TouchableOpacity style={styles.buttonStyleSelect} onPress={() => { this.guessLetter(this.state.letter) }}>
                             <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>Select</Text>
                         </TouchableOpacity>
-                    </View>
+                    </KeyboardAvoidingView>
                     <View style={styles.footerButtonContainer}>
                         <TouchableOpacity style={styles.buttonStyle} onPress={() => alert(this.state.theWord)}>
                             <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>Get Solution</Text>
@@ -212,7 +241,7 @@ export default class HangMan extends React.Component {
                 </View>
 
 
-            </KeyboardAvoidingView>
+            </View>
         );
     }
 }

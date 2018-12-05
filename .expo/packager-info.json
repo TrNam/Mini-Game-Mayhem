@@ -2,8 +2,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://y8-73i.lancem26.mini-game-mayhem.exp.direct",
+  "packagerNgrokUrl": "https://packager.y8-73i.lancem26.mini-game-mayhem.exp.direct",
+  "ngrokPid": 7488,
   "devToolsPort": 19002
 }
