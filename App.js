@@ -6,6 +6,7 @@ import Intro from './views/Intro';
 import Options from './views/Options';
 import GamesList from './views/GamesList';
 import TicTacToe from './views/TicTacToe/Landing';
+import Connect4 from './views/Connect4';
 import HangMan from './views/Hangman/HangMan';
 
 
@@ -22,6 +23,9 @@ const RootStack = createStackNavigator(
     },
     GamesList: {
       screen: GamesList
+    },
+    Connect4: {
+      screen: Connect4
     },
     TicTacToe: {
       screen: TicTacToe

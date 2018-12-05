@@ -23,6 +23,6 @@
     "react-native-really-awesome-button": "^0.8.3",
     "react-native-svg": "^8.0.8",
     "react-native-triangle": "0.0.9",
-    "react-navigation": "^2.18.2"
+    "react-navigation": "^2.18.3"
   }
 }

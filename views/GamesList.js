@@ -28,7 +28,7 @@ export default class GamesList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            games:["Tap'pa Tap","Checkers","Tic Tac Toe","Hangman"],
+            games:["Tap'pa Tap","Connect4","Tic Tac Toe","Hangman"],
             isTapPressed: true,
             isCheckerPressed: true,
             isTicPressed: true,
@@ -73,7 +73,7 @@ export default class GamesList extends React.Component {
                         currentDropDown = this.state.isDropDownTapPressed
                         currentMoved = 'tap'
                         test = this.state.isTapMoved
-                    } else if (item === "Checkers") {
+                    } else if (item === "Connect4") {
                         currentGame = this.state.isCheckerPressed
                         currentDropDown = this.state.isDropDownCheckerPressed
                         currentMoved = 'checker'
@@ -108,7 +108,7 @@ export default class GamesList extends React.Component {
                                             isTapMoved: !this.state.isTapMoved
                                         })
                                         
-                                    } else if (item === "Checkers") {
+                                    } else if (item === "Connect4") {
                                         this.setState({
                                             isHangPressed: !this.state.isHangPressed,
                                             isTapPressed: !this.state.isTapPressed,
@@ -161,8 +161,8 @@ export default class GamesList extends React.Component {
                                             onPress = {() => {
                                                 if (item === "Tap'pa Tap") {
                                                     navigate('Options')
-                                                } else if (item === "Checkers") {
-                                                    navigate('Options')
+                                                } else if (item === "Connect4") {
+                                                    navigate('Connect4')
                                                 } else if (item === "Tic Tac Toe") {
                                                     navigate('TicTacToe')
                                                 } else {
