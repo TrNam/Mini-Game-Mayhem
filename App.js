@@ -1,7 +1,6 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import { Font } from 'expo';
+import { Font, AppLoading } from 'expo';
 import Home from './views/Home';
 import Intro from './views/Intro';
 import Options from './views/Options';
@@ -48,21 +47,43 @@ const RootStack = createStackNavigator(
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    // this.state={
+    //   isLoadingComplete: false
+    // }
   }
 
-  componentWillMount = async () => {
-    StatusBar.setHidden(true);
-    await Font.loadAsync({
-        'munro': require('./assets/fonts/munro.ttf'),
-    });
-    this.setState({ fontLoaded: true });
-}
+
+  // _loadResourcesAsync = async () => {
+  //   return Promise.all([
+  //       Font.loadAsync({
+  //           ...Icon.Ionicons.font,
+  //           'munro': require('./assets/fonts/munro.ttf'),
+  //       }),
+  //   ]);
+  // };
+
+  // _handleLoadingError = error => {
+  //     console.warn(error);
+  // };
+
+  // _handleFinishLoading = () => {
+  //     this.setState({isLoadingComplete: true});
+  // };  
 
   render() {
-    return (
-      <RootStack/>
-    );
+    // if (!this.state.isLoadingComplete) {
+    //   return (
+    //     <AppLoading
+    //         startAsync={this._loadResourcesAsync}
+    //         onError={this._handleLoadingError}
+    //         onFinish={this._handleFinishLoading}
+    //     />
+    //   );
+    // } else {
+      return(
+        <RootStack/>
+      )
+    // }
   }
 }
-
 
