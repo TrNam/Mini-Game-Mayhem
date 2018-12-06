@@ -735,6 +735,14 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+axios@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
+  dependencies:
+    follow-redirects "^1.3.0"
+    is-buffer "^1.1.5"
+
 babel-code-frame@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.26.0.tgz#63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
@@ -1882,6 +1890,13 @@ debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.
   dependencies:
     ms "2.0.0"
 
+debug@=3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+  dependencies:
+    ms "2.0.0"
+
 debug@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.0.tgz#373687bffa678b38b1cd91f861b63850035ddc87"
@@ -2591,6 +2606,13 @@ find-up@^2.0.0, find-up@^2.1.0:
   integrity sha1-RdG35QbHF93UgndaK3eSCjwMV6c=
   dependencies:
     locate-path "^2.0.0"
+
+follow-redirects@^1.3.0:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
+  dependencies:
+    debug "=3.1.0"
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
@@ -4277,6 +4299,11 @@ react-devtools-core@3.1.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-is@^16.5.2:
+  version "16.6.3"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.6.3.tgz#d2d7462fcfcbe6ec0da56ad69047e47e56e7eac0"
+  integrity sha512-u7FDWtthB4rWibG/+mFbVd5FvdI20yde86qKGx4lVUTWmPlSWQ4QxbBIrrs+HnXGbxOUlUzTAP/VDmvCwaP2yA==
+
 react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -4364,6 +4391,15 @@ react-native-svg@6.2.2:
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-6.2.2.tgz#5803cddce374a542b4468c38a2474fca32080685"
   integrity sha512-t6wKX6HejI77K7MCMIvtmcX6vAv93WIcg8ff6kPr4HRpqgzgtuCVatkueplG2lLb1+YVhzAdhPTrpXAphIG/EA==
+  dependencies:
+    color "^2.0.1"
+    lodash "^4.16.6"
+    pegjs "^0.10.0"
+
+react-native-svg@^8.0.8:
+  version "8.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-8.0.8.tgz#5d4c636751d9db2d98a9b3cfc4ef45c4eac65d60"
+  integrity sha512-a5q7896HJztH3XBa4MouuBcwhOvDsJXRZB/PPvEMvc4NhudIDXDUKpwd9V7Hm6beDjg5CjFIdE/c92jnVo+0CA==
   dependencies:
     color "^2.0.1"
     lodash "^4.16.6"
@@ -4492,16 +4528,17 @@ react-navigation-tabs@0.8.4:
     react-lifecycles-compat "^3.0.4"
     react-native-tab-view "^1.0.0"
 
-react-navigation@^2.18.2:
-  version "2.18.2"
-  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.18.2.tgz#ba278ded41f736d029c7cae5d54ab1427dc6ed34"
-  integrity sha512-H9hkuC+Fyav/zlss4PU8XRjgBPMKXG9uudT7PSAaRi4kuRkGb77OJDZHBW6Vm9QPF9tAKK95AhaS1mbecLM8Yw==
+react-navigation@^2.18.3:
+  version "2.18.3"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-2.18.3.tgz#de9a24dc37dfc33f3e4779a9f13f45ea97dfe19e"
+  integrity sha512-/5KGMG1Oj5LN/x/7AKF0MWrpX9Qe29307RxEsMCiRT/A4jCYT0DPY99Bl7ZAGtROxExEy3rwTfTrtvpIT+CU7A==
   dependencies:
     clamp "^1.0.1"
     create-react-context "0.2.2"
     hoist-non-react-statics "^2.2.0"
     path-to-regexp "^1.7.0"
     query-string "^6.1.0"
+    react-is "^16.5.2"
     react-lifecycles-compat "^3"
     react-native-safe-area-view "0.11.0"
     react-native-screens "^1.0.0-alpha.11"
