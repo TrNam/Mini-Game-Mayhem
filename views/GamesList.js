@@ -183,8 +183,7 @@ export default class GamesList extends React.Component {
                                                     navigate('Options', {game: 'Tap'})
                                                     this.closeEverything()
                                                 } else if (item === "Connect4") {
-                                                    navigate('Connect4')
-                                                    this.closeEverything()
+                                                    navigate('Options', {game:'Connect4'})
                                                 } else if (item === "Tic Tac Toe") {
                                                     navigate('TicTacToe')
                                                     this.closeEverything()

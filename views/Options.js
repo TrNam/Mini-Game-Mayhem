@@ -23,8 +23,8 @@ export default class Options extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation
-        const { navigation } = this.props;
-        const game = navigation.getParam('game', 'No Game');
+        const {navigation} = this.props;
+        const game = navigation.getParam('game', 'Home');
         return (
             <ImageBackground
                 source={require('../assets/bg/4.png')}
@@ -52,7 +52,7 @@ export default class Options extends React.Component {
                             if (game === "Tap") {
                                 navigate('TapGame', {twoPlayers: true})
                             } else if (game === "Connect4") {
-                                navigate('Connect4', {twoPlayers: true})
+                                navigate(game,{Ai:false})
                             } else if (game === "Tic Tac Toe") {
                                 navigate('TicTacToe', {twoPlayers: true})
                             } else {
@@ -74,8 +74,8 @@ export default class Options extends React.Component {
                         onPress = {() => {
                             if (game === "Tap") {
                                 navigate('TapGame', {twoPlayers: false})
-                            } else if (game === "Checkers") {
-                                navigate('Checkers', {twoPlayers: false})
+                            } else if (game === "Connect4") {
+                                navigate(game,{Ai:true})
                             } else if (game === "Tic Tac Toe") {
                                 navigate('TicTacToe', {twoPlayers: false})
                             } else {

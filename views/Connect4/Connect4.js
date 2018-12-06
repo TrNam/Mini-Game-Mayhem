@@ -19,8 +19,9 @@ export default class Connect4 extends React.Component {
 	static navigationOptions = {
     header: null
   }
-    constructor() {
+    constructor({navigation}) {
     	super();
+    	const AI = navigation.getParam('Ai', false); 
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         })
@@ -40,7 +41,7 @@ export default class Connect4 extends React.Component {
             c5:6,
             c6:6,
             c7:6,
-            Ai:false,
+            Ai: AI ,
         }
         this.renderRow = this.renderRow.bind(this); 
     }
@@ -153,7 +154,6 @@ export default class Connect4 extends React.Component {
             c5:6,
             c6:6,
             c7:6,
-            Ai:false,
 	    })
 		if(home == 2){
 			this.props.navigation.navigate('Home')
@@ -392,7 +392,6 @@ export default class Connect4 extends React.Component {
 
 const styles = StyleSheet.create({
 	container:{
-		marginBottom:50,
 		width:Dimensions.get('window').width,
 		height:Dimensions.get('window').height,
 		alignItems:'center',
