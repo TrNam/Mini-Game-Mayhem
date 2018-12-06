@@ -37,10 +37,6 @@ export default class GamesList extends React.Component {
             isDropDownCheckerPressed: false,
             isDropDownTicPressed: false,
             isDropDownHangPressed: false,
-            isTapMoved: false,
-            isTicMoved: false,
-            isHangMoved: false,
-            isCheckerMoved: false,
         }
     }
   
@@ -49,17 +45,21 @@ export default class GamesList extends React.Component {
         header: null
     }
 
+    closeEverything = () => {
+        this.setState({
+            isTapPressed: true,
+            isCheckerPressed: true,
+            isTicPressed: true,
+            isHangPressed: true,
+            isDropDownTapPressed: false,
+            isDropDownCheckerPressed: false,
+            isDropDownTicPressed: false,
+            isDropDownHangPressed: false,
+        })
+    }
 
     render() {
         const { navigate } = this.props.navigation
-        closeEverything = () => {
-            this.setState({
-                isTapPressed: false,
-                isCheckerPressed: false,
-                isTicPressed: false,
-                isHangPressed: false,
-            })
-        }
         return(
             <ImageBackground
                 source={require('../assets/bg/4.png')}
@@ -72,22 +72,18 @@ export default class GamesList extends React.Component {
                         currentGame = this.state.isTapPressed
                         currentDropDown = this.state.isDropDownTapPressed
                         currentMoved = 'tap'
-                        test = this.state.isTapMoved
                     } else if (item === "Checkers") {
                         currentGame = this.state.isCheckerPressed
                         currentDropDown = this.state.isDropDownCheckerPressed
                         currentMoved = 'checker'
-                        test = this.state.isCheckerMoved
                     } else if (item === "Tic Tac Toe") {
                         currentGame = this.state.isTicPressed
                         currentDropDown = this.state.isDropDownTicPressed
                         currentMoved = 'tic'
-                        test = this.state.isTicMoved
                     } else if (item === "Hangman") {
                         currentGame = this.state.isHangPressed
                         currentDropDown = this.state.isDropDownHangPressed
                         currentMoved = 'hang'
-                        test = this.state.isHangMoved
                     }
                     return (
                         <TheGame 
@@ -98,14 +94,15 @@ export default class GamesList extends React.Component {
                         {currentGame == true && 
                         <View>
                             <TouchableOpacity
-                                onPress={() => {
+                                onPress={ async () => {
                                     if (item === "Tap'pa Tap") {
-                                        this.setState({
+                                        await this.setState({
                                             isCheckerPressed: !this.state.isCheckerPressed,
                                             isTicPressed: !this.state.isTicPressed,
                                             isHangPressed: !this.state.isHangPressed,
-                                            isDropDownTapPressed: !this.state.isDropDownTapPressed,
-                                            isTapMoved: !this.state.isTapMoved
+                                        })
+                                        await this.setState({
+                                            isDropDownTapPressed: !this.state.isDropDownTapPressed
                                         })
                                         
                                     } else if (item === "Checkers") {
@@ -113,8 +110,9 @@ export default class GamesList extends React.Component {
                                             isHangPressed: !this.state.isHangPressed,
                                             isTapPressed: !this.state.isTapPressed,
                                             isTicPressed: !this.state.isTicPressed,
+                                        })
+                                        this.setState({
                                             isDropDownCheckerPressed: !this.state.isDropDownCheckerPressed,
-                                            isCheckerMoved: !this.state.isCheckerMoved
                                         })
                                     } else if (item === "Tic Tac Toe") {
                                         this.setState({
@@ -122,7 +120,6 @@ export default class GamesList extends React.Component {
                                             isCheckerPressed: !this.state.isCheckerPressed,
                                             isTapPressed: !this.state.isTapPressed,
                                             isDropDownTicPressed: !this.state.isDropDownTicPressed,
-                                            isTicMoved: !this.state.isTicMoved
                                         })
                                     } else {
                                         this.setState({
@@ -130,7 +127,6 @@ export default class GamesList extends React.Component {
                                             isTapPressed: !this.state.isTapPressed,
                                             isTicPressed: !this.state.isTicPressed,
                                             isDropDownHangPressed: !this.state.isDropDownHangPressed,
-                                            isHangMoved: !this.state.isHangMoved
                                         })
                                     }
                                 }}
@@ -139,15 +135,19 @@ export default class GamesList extends React.Component {
                                     content={item}
                                     buttonWidth={window.height/2}
                                     buttonHeight={window.height/8}
-                                    lightColor={'#F9C2A2'}
-                                    darkColor={'#C94900'}
-                                    midColor={'#F79256'} 
-                                    textSize={window.height/25}
-                                    buttonBorderColor={'#89441C'}
                                 />
                             </TouchableOpacity>
-                            {currentDropDown == true &&
-                                <View style={{position:'absolute', right:50, top:40, alignItems:'center', justifyContent:'center'}}>
+                            <DropDown
+                                style={styles.dropDown}
+                                pose={currentDropDown ? 'end' : 'start'}
+                            >
+                                {currentDropDown == true &&
+                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                                        <Image style={{height:'90%',resizeMode:'contain'}} source={require('../assets/GIF/Hangman.gif')}/>
+                                    </View>
+                                }
+                                {currentDropDown == true &&
+                                    <View style={{position:'absolute',alignItems:'center', justifyContent:'center'}}>
                                     
                                     <View style={{position:'absolute'}}>
                                         <CirclePixel
@@ -160,13 +160,17 @@ export default class GamesList extends React.Component {
                                         <TouchableOpacity
                                             onPress = {() => {
                                                 if (item === "Tap'pa Tap") {
-                                                    navigate('Options')
+                                                    navigate('Options', {game: 'Tap'})
+                                                    this.closeEverything()
                                                 } else if (item === "Checkers") {
-                                                    navigate('Options')
+                                                    navigate('Options', {game: 'Checkers'})
+                                                    this.closeEverything()
                                                 } else if (item === "Tic Tac Toe") {
-                                                    navigate('Options')
+                                                    navigate('Options', {game: 'Tic'})
+                                                    this.closeEverything()
                                                 } else {
-                                                    navigate('Options')
+                                                    navigate('Options', {game: 'Hang'})
+                                                    this.closeEverything()
                                                 }
                                             }}
                                         >
@@ -181,15 +185,6 @@ export default class GamesList extends React.Component {
                                     </View>
                                     
                                 </View>
-                                }
-                            <DropDown
-                                style={styles.dropDown}
-                                pose={currentDropDown ? 'end' : 'start'}
-                            >
-                                {currentDropDown == true &&
-                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                        <Image style={{height:'90%',resizeMode:'contain'}} source={require('../assets/GIF/Hangman.gif')}/>
-                                    </View>
                                 }
                             </DropDown>
                         </View>}
@@ -212,15 +207,17 @@ const styles = StyleSheet.create({
         position:'absolute'
     },
     dropDown: {
-        backgroundColor:'#E07BD2',
+        backgroundColor:'#F79256',
         width:window.height/2,
         height:window.height/1.4,
         borderRadius:10,
-        borderTopColor:'#FFCCF8',
-        borderBottomColor:'#932F86',
-        borderRightColor:'#932F86',
-        borderLeftColor:'#FFCCF8',
+        borderTopColor:'#F9C2A2',
+        borderBottomColor:'#C94900',
+        borderRightColor:'#C94900',
+        borderLeftColor:'#F9C2A2',
         flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
         borderWidth:window.height/90,
     },
     tap: {

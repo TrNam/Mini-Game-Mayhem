@@ -13,6 +13,12 @@ export default class TrianglePixel extends React.Component {
         shadowColor: PropTypes.string.isRequired
     }
 
+    static defaultProps = {
+        triDir: 'right',
+        triColor:'#F7CD6B',
+        shadowColor:'#A13D3B'
+    }
+
     constructor(props){
         super(props);
         this.state = {

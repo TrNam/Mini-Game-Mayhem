@@ -1,9 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-
-const window = Dimensions.get('window')
-
 
 
 export default class CirclePixel extends React.Component {

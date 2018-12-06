@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text, View, ImageBackground, Image } from 'react-native';
+import { StatusBar } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import { Font } from 'expo';
 import Home from './views/Home';
 import Intro from './views/Intro';
 import Options from './views/Options';
 import GamesList from './views/GamesList';
 import TicTacToe from './views/TicTacToe/Landing';
-
+import TapGame from './views/TapGame/TapGame';
 
 const RootStack = createStackNavigator(
   {
@@ -24,14 +25,30 @@ const RootStack = createStackNavigator(
     },
     TicTacToe: {
       screen: TicTacToe
+    },
+    TapGame: {
+      screen: TapGame
     }
   },
   {
-    initialRouteName: 'TicTacToe'
+    initialRouteName: 'GamesList'
   }
 )
 
+
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount = async () => {
+    StatusBar.setHidden(true);
+    await Font.loadAsync({
+        'munro': require('./assets/fonts/munro.ttf'),
+    });
+    this.setState({ fontLoaded: true });
+}
+
   render() {
     return (
       <RootStack/>

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { StatusBar, View, ImageBackground, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import PixelButton from '../components/PixelButton';
-
 
 const window = Dimensions.get('window')
 
@@ -11,7 +10,7 @@ export default class Options extends React.Component {
         super(props);
         this.state = {
             vs2Player: 'VS 2 Player',
-            vsComp: 'VS Computer'
+            vsComp: 'VS Computer',
         }
     }
 
@@ -19,32 +18,78 @@ export default class Options extends React.Component {
         header: null
     }
 
+
     render() {
+        const { navigate } = this.props.navigation
+        const { navigation } = this.props;
+        const game = navigation.getParam('game', 'No Game');
         return (
+            <ImageBackground
+                source={require('../assets/bg/4.png')}
+                style={{width:window.width, height:window.height}}
+            >
+            <View style={{position:'absolute', left:'2%', top:'2%'}}>
+                <TouchableOpacity
+                    // onPress={
+                    //     this.props.navigation.navigate('GamesList')
+                    // }
+                >
+                    <PixelButton
+                        content={'Back'}
+                        buttonWidth={window.height/6}
+                        buttonHeight={window.height/18}
+                        textSize={window.height/35}
+                        borderWidth={window.height/90}
+                    />
+                </TouchableOpacity>
+            </View>
             <View style={styles.container}>
                 <View style={styles.option}>
-                <PixelButton
-                    content={'VS Player 2'}
-                    buttonWidth={window.height/2.5}
-                    buttonHeight={window.height/8}
-                    lightColor={'#F4CDD1'}
-                    darkColor={'#75161F'}
-                    midColor={'#BA323F'} //or C14955
-                    textSize={window.height/25}
-                />
+                    <TouchableOpacity
+                        onPress = {() => {
+                            if (game === "Tap") {
+                                navigate('TapGame', {twoPlayers: true})
+                            } else if (game === "Checkers") {
+                                navigate('Checkers', {twoPlayers: true})
+                            } else if (game === "Tic Tac Toe") {
+                                navigate('TicTacToe', {twoPlayers: true})
+                            } else {
+                                navigate('Hangman', {twoPlayers: true})
+                            }
+                        }}
+                    >
+                        <PixelButton
+                            content={'VS Player 2'}
+                            buttonWidth={window.height/2.5}
+                            buttonHeight={window.height/8}
+                            textSize={window.height/25}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.option}>
-                <PixelButton
-                    content={'VS Computer'}
-                    buttonWidth={window.height/2.5}
-                    buttonHeight={window.height/8}
-                    lightColor={'#F4CDD1'}
-                    darkColor={'#75161F'}
-                    midColor={'#BA323F'} //or C14955
-                    textSize={window.height/25}
-                />
+                    <TouchableOpacity
+                        onPress = {() => {
+                            if (game === "Tap") {
+                                navigate('TapGame', {twoPlayers: false})
+                            } else if (game === "Checkers") {
+                                navigate('Checkers', {twoPlayers: false})
+                            } else if (game === "Tic Tac Toe") {
+                                navigate('TicTacToe', {twoPlayers: false})
+                            } else {
+                                navigate('Hangman', {twoPlayers: false})
+                            }
+                        }}
+                    >
+                        <PixelButton
+                            content={'VS Computer'}
+                            buttonWidth={window.height/2.5}
+                            buttonHeight={window.height/8}
+                            textSize={window.height/25}
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
+            </ImageBackground>
         );
     }
 }
@@ -53,7 +98,7 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         alignItems: 'center',
-        backgroundColor:'#ffffff'
+        backgroundColor:'transparent'
     },
     option: {
         flex:1,
