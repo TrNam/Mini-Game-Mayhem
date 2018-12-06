@@ -375,7 +375,6 @@ export default class Connect4 extends React.Component {
 
 const styles = StyleSheet.create({
 	container:{
-		marginBottom:50,
 		width:Dimensions.get('window').width,
 		height:Dimensions.get('window').height,
 		alignItems:'center',
