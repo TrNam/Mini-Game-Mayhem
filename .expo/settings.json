@@ -1,7 +1,7 @@
 {
-  "hostType": "tunnel",
+  "hostType": "localhost",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "y8-73i"
+  "urlRandomness": "6z-jfp"
 }
