@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Font } from 'expo';
 import { Text, View, StyleSheet, Dimensions} from 'react-native';
 
 const window = Dimensions.get('window')
 const _BORDER_BUTTON = window.height/45;
-const _CORNERS = window.height/90;
 
 export default class PixelButton extends React.Component {
     static propTypes = {
@@ -14,20 +14,46 @@ export default class PixelButton extends React.Component {
         lightColor: PropTypes.string.isRequired,
         darkColor: PropTypes.string.isRequired,
         midColor: PropTypes.string.isRequired,
-        textSize: PropTypes.number.isRequired
+        fontType: PropTypes.string.isRequired,
+        textSize: PropTypes.number.isRequired,
+        borderWidth: PropTypes.number.isRequired,
+        buttonBorderColor: PropTypes.string.isRequired,
     }
 
+    static defaultProps = {
+        lightColor:'#F9C2A2',
+        darkColor:'#C94900',
+        midColor:'#F79256',
+        textSize:window.height/25,
+        buttonBorderColor:'#89441C',
+        borderWidth: _BORDER_BUTTON,
+        fontType:'sans-serif-condensed'
+    }
+
+    constructor(props){
+        super(props);
+        this.state={
+            fontLoaded: false,
+        }
+    }
+
+    componentWillMount = async () => {
+        await Font.loadAsync({
+            'munro': require('../assets/fonts/munro.ttf'),
+        });
+        this.setState({ fontLoaded: true });
+    }
 
     render() {
-        const { content, buttonHeight, buttonWidth, lightColor, darkColor, midColor, textSize, buttonBorderColor } = this.props;
-        let theWidth = buttonWidth - _BORDER_BUTTON
-        let theHeight = buttonHeight - _BORDER_BUTTON
+        const { content, fontType, buttonHeight, buttonWidth, lightColor, darkColor, midColor, textSize, buttonBorderColor, borderWidth } = this.props;
+        let theWidth = buttonWidth - borderWidth
+        let theHeight = buttonHeight - borderWidth
         return (
             <View style={[styles.button,{width:buttonWidth, height:buttonHeight}]}>
-                <View style={[styles.borderTopAndBottom,{top:0, width:theWidth, backgroundColor:buttonBorderColor}]}></View>
-                <View style={[styles.borderTopAndBottom,{bottom:0, width:theWidth, backgroundColor:buttonBorderColor}]}></View>
-                <View style={[styles.borderLeftAndRight,{left:0, height:theHeight, backgroundColor:buttonBorderColor}]}></View>
-                <View style={[styles.borderLeftAndRight,{right:0, height:theHeight, backgroundColor:buttonBorderColor}]}></View>
+                <View style={[styles.borderTopAndBottom,{top:0, height: borderWidth, width:theWidth, backgroundColor:buttonBorderColor}]}></View>
+                <View style={[styles.borderTopAndBottom,{bottom:0, height: borderWidth, width:theWidth, backgroundColor:buttonBorderColor}]}></View>
+                <View style={[styles.borderLeftAndRight,{left:0, width:borderWidth, height:theHeight, backgroundColor:buttonBorderColor}]}></View>
+                <View style={[styles.borderLeftAndRight,{right:0, width:borderWidth, height:theHeight, backgroundColor:buttonBorderColor}]}></View>
                     <View style={
                         [
                             styles.buttonInside,
@@ -37,13 +63,14 @@ export default class PixelButton extends React.Component {
                                 borderLeftColor:lightColor,
                                 borderTopColor:lightColor,
                                 backgroundColor:midColor,
-                                width: buttonWidth - _BORDER_BUTTON,
-                                height: buttonHeight - _BORDER_BUTTON
+                                width: buttonWidth - borderWidth,
+                                height: buttonHeight - borderWidth,
+                                borderWidth:borderWidth/2,
                             }
                         ]
                         }>
-                        <View style={[styles.corner, {bottom:0, right:-1, backgroundColor:darkColor}]}></View>
-                        <Text style={{color:'white', fontSize:textSize, fontWeight:'bold', fontFamily:'sans-serif-condensed'}}>{content}</Text>
+                        <View style={[styles.corner, {bottom:0, right:-1, backgroundColor:darkColor, width:borderWidth/2, height:borderWidth/2,}]}></View>
+                        <Text style={{fontFamily:fontType,color:'white', fontSize:textSize, fontWeight:'bold',}}>{content}</Text>
                     </View>
             </View>
         );
@@ -57,11 +84,11 @@ const styles = StyleSheet.create({
     },
     corner: {
         position:'absolute',
-        width:_BORDER_BUTTON/2,
-        height:_BORDER_BUTTON/2,
+        // width:_BORDER_BUTTON/2,
+        // height:_BORDER_BUTTON/2,
     },
     buttonInside: {
-        borderWidth:_BORDER_BUTTON/2,
+        // borderWidth:_BORDER_BUTTON/2,
         position:'absolute',
         alignItems:'center',
         justifyContent:'center'
@@ -69,10 +96,10 @@ const styles = StyleSheet.create({
     },
     borderTopAndBottom: {
         position:'absolute',
-        height: _BORDER_BUTTON,
+        // height: _BORDER_BUTTON,
     },
     borderLeftAndRight: {
         position:'absolute',
-        width:_BORDER_BUTTON
+        // width:_BORDER_BUTTON
     }
 })

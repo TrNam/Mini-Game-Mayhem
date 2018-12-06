@@ -2815,6 +2815,11 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
+hex-color-regex@~1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.0.3.tgz#2175693bc292fe06711b04faee9004790926f9b0"
+  integrity sha1-IXVpO8KS/gZxGwT67pAEeQkm+bA=
+
 hey-listen@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/hey-listen/-/hey-listen-1.0.5.tgz#6d0a3a2f60177f65bc4404d571a00025bf5dc20e"
@@ -3054,6 +3059,13 @@ is-glob@^2.0.0, is-glob@^2.0.1:
   integrity sha1-0Jb5JqPe1WAPP9/ZEZjLCIjC2GM=
   dependencies:
     is-extglob "^1.0.0"
+
+is-hexcolor@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-hexcolor/-/is-hexcolor-1.0.0.tgz#495fee1a12baaf009c102a799bdec3193211274a"
+  integrity sha1-SV/uGhK6rwCcECp5m97DGTIRJ0o=
+  dependencies:
+    hex-color-regex "~1.0.2"
 
 is-number@^2.1.0:
   version "2.1.0"
@@ -4342,6 +4354,33 @@ react-native-gesture-handler@1.0.6:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-gesture-handler@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.0.10.tgz#160e55e4886471931b7f7d52e22d94007540ab83"
+  integrity sha512-GNVZ+rbwfi147qOxIvWyfHcTswr+CRT/bSy/Gr5Dz17/tWmomf9D6tGr1yJhyW8IhEZ307KLBWRCXLBM9Q2YQg==
+  dependencies:
+    hoist-non-react-statics "^2.3.1"
+    invariant "^2.2.2"
+    prop-types "^15.5.10"
+
+react-native-global-props@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/react-native-global-props/-/react-native-global-props-1.1.5.tgz#443e0ffc89d5402fa20ebedf37bcbca6d861c34d"
+  integrity sha512-QDeAdRel6zyJfbgyFxZi9QXZe78OdlANxJae0rJn76uTqdt/A+iWBVjJy3NmaN/fpKy0uV0HhW6Hu4xM0QCisQ==
+
+react-native-iphone-x-helper@^1.0.3:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
+  integrity sha512-xIeTo4s77wwKgBZLVRIZC9tM9/PkXS46Ul76NXmvmixEb3ZwqGdQesR3zRiLMOoIdfOURB6N9bba9po7+x9Bag==
+
+react-native-keyboard-aware-scroll-view@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.7.4.tgz#80fb4b56f3c5cb399da0c6832ec52729856ac08a"
+  integrity sha512-5AJ11sGcleiX43IJ32T0kPtIxcd1JWw0R+YPwkgyZWro7uuGBlq09CFW5jS9JTNoGq7crFzFfTcoTIY6B41rNQ==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
+
 react-native-maps@0.21.0:
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.21.0.tgz#005f58e93d7623ad59667e8002101970ddf235c2"
@@ -4404,6 +4443,13 @@ react-native-svg@^8.0.8:
     color "^2.0.1"
     lodash "^4.16.6"
     pegjs "^0.10.0"
+
+react-native-sweet-alert@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-sweet-alert/-/react-native-sweet-alert-2.0.1.tgz#ef7dd848267e1cd76c3ffc5c21aa15a05c6586e8"
+  integrity sha512-NKuVia1HeECpz4Fdz6fMtyJX67kbxC33hC6tqhd6k2XApts2hxhC3AHQT4i10XvrJqbrRyMO+a3yNsP0ImMdLA==
+  dependencies:
+    is-hexcolor "^1.0.0"
 
 react-native-tab-view@^0.0.77:
   version "0.0.77"

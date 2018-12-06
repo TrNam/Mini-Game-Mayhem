@@ -1,8 +1,11 @@
 import React from 'react';
 import { Svg } from 'expo';
-import { Alert, Text, View, ImageBackground, Image, Button, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, StatusBar } from 'react-native';
+import { Dimensions, Keyboard, Alert, Text, View, ImageBackground, Image, Button, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, StatusBar } from 'react-native';
 import { ApiService } from './apiService';
 import { Font } from 'expo'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import PixelButton from '../../components/PixelButton';
+const window = Dimensions.get('window')
 const {
     Circle,
     G,
@@ -32,10 +35,10 @@ export default class HangMan extends React.Component {
 
     }
 
-    goToMain = () =>{
-        this.props.navigation.navigate('Home');
+    goToMain = () => {
+        this.props.navigation.navigate('GamesList');
     }
-    
+
 
     componentWillMount = async () => {
         await Font.loadAsync({
@@ -65,6 +68,8 @@ export default class HangMan extends React.Component {
     }
 
     guessLetter = (letter) => {
+        Keyboard.dismiss();
+        this.textInput.clear();
         letter = letter.toLowerCase()
         if (!letter.trim() == "") {
             if (letter.length === 1 && letter.match(/[a-z]/i)) {
@@ -178,70 +183,96 @@ export default class HangMan extends React.Component {
             <Line x1="250" y1="250" x2="270" y2="300" stroke="#ecd2b7" stroke-Linecap="round" strokeWidth="10" id="legRight" /></G>
 
         return (
-            <View style={{ ...StyleSheet.absoluteFillObject }}>
-                <StatusBar hidden />
-                <View style={{ backgroundColor: 'white', flex: 2 }}>
-                    <View style={styles.header}>
-                        {this.state.fontLoaded && <Text style={{ fontFamily: 'munro', fontSize: 30 }}>HANGMAN</Text>}
+                <ImageBackground
+                    source={require('../../assets/bg/4.png')}
+
+                    style={{ ...StyleSheet.absoluteFillObject }}>
+                    <StatusBar hidden />
+                    <View style={{ flex: 2 }}>
+                        <View style={styles.header}>
+                            {this.state.fontLoaded && <Text style={{ fontFamily: 'munro', fontSize: 30 }}>HANGMAN</Text>}
+                        </View>
+
+                        <View style={styles.hangmanArea}>
+                            <Svg style={{ marginTop: 80, }} version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" class="svg-content" width="200" height="250">
+                                <Rect fill="#053544" width="10" height="400" x="20" y="0" />
+                                <Rect fill="#053544" width="300" height="10" x="20" y="0" />
+                                <Rect fill="#053544" width="300" height="10" x="0" y="400" />
+                                {this.state.wrong > 0 ? rope : null}
+                                {this.state.wrong > 1 ? head : null}
+                                {this.state.wrong > 2 ? bodyMain : null}
+                                {this.state.wrong > 3 ? hands : null}
+                                {this.state.wrong > 4 ? legs : null}
+                            </Svg>
+
+
+                        </View>
+                        {this.state.fontLoaded && <View style={styles.wordArea}>
+
+                            <Text style={{ fontFamily: 'munro', fontSize: 30, letterSpacing: 10 }}>{this.state.hangmanString}</Text>
+
+                        </View>}
+
+
+                    </View>
+                    <View style={styles.bottomHalf}>
+                        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
+                            <TextInput
+                                ref={input => { this.textInput = input }}
+                                maxLength={1}
+                                onChangeText={(letter) => this.setState({ letter })}
+                                underlineColorAndroid='transparent'
+                                value={this.state.letter}
+                                style={{
+                                    textAlign: 'center',
+                                    borderColor: 'black',
+                                    borderWidth: 0.5,
+                                    width: 40,
+                                    alignSelf: 'center',
+                                    marginVertical: 10,
+                                }}
+                            />
+                            {/* <KeyboardAvoidingView> */}
+                            <TouchableOpacity style={{alignSelf: 'center',}} onPress={() => { this.guessLetter(this.state.letter) }}>
+                                <PixelButton
+                                    content={'SELECT'}
+                                    buttonWidth={100}
+                                    buttonHeight={60}
+                                    textSize={10}
+                                    buttonBorderColor={'#89441C'}
+                                />
+                            </TouchableOpacity>
+                            
+                            {/* </KeyboardAvoidingView> */}
+
+                        </View>
+                        
+                        <View style={styles.footerButtonContainer}>
+                            <TouchableOpacity onPress={() => alert(this.state.theWord)}>
+                            <PixelButton
+                                    content={'GET SOLUTION'}
+                                    buttonWidth={100}
+                                    buttonHeight={60}
+                                    textSize={10}
+                                    buttonBorderColor={'#89441C'}
+                                />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => { this.getHint().then(result => { alert(`A letter in the word is: ${result}`) }) }}>
+                            <PixelButton
+                                    content={'GET HINT'}
+                                    buttonWidth={100}
+                                    buttonHeight={60}
+                                    textSize={10}
+                                    buttonBorderColor={'#89441C'}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        
                     </View>
 
-                    <View style={styles.hangmanArea}>
-                        <Svg style={{ marginTop: 80, }} version="1.1" viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" class="svg-content" width="200" height="250">
-                            <Rect fill="#053544" width="10" height="400" x="20" y="0" />
-                            <Rect fill="#053544" width="300" height="10" x="20" y="0" />
-                            <Rect fill="#053544" width="300" height="10" x="0" y="400" />
-                            {this.state.wrong > 0 ? rope : null}
-                            {this.state.wrong > 1 ? head : null}
-                            {this.state.wrong > 2 ? bodyMain : null}
-                            {this.state.wrong > 3 ? hands : null}
-                            {this.state.wrong > 4 ? legs : null}
-                        </Svg>
-
-
-                    </View>
-                    {this.state.fontLoaded && <View style={styles.wordArea}>
-
-                        <Text style={{ fontFamily: 'munro', fontSize: 30, letterSpacing: 10 }}>{this.state.hangmanString}</Text>
-
-                    </View>}
-
-
-                </View>
-                <View style={styles.bottomHalf}>
-                    <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }} behavior="padding" enabled>
-                        <TextInput
-                            maxLength={1}
-                            onChangeText={(letter) => this.setState({ letter })}
-                            underlineColorAndroid='transparent'
-                            value={this.state.letter}
-                            style={{
-                                textAlign: 'center',
-                                borderColor: 'black',
-                                borderWidth: 0.5,
-                                marginLeft: 67,
-                                backgroundColor: 'white',
-                                width: 40,
-                                alignSelf: 'center',
-                                marginVertical: 10,
-                            }}
-                        />
-                        <TouchableOpacity style={styles.buttonStyleSelect} onPress={() => { this.guessLetter(this.state.letter) }}>
-                            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>Select</Text>
-                        </TouchableOpacity>
-                    </KeyboardAvoidingView>
-                    <View style={styles.footerButtonContainer}>
-                        <TouchableOpacity style={styles.buttonStyle} onPress={() => alert(this.state.theWord)}>
-                            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>Get Solution</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.buttonStyle} onPress={() => { this.getHint().then(result => { alert(result) }) }}>
-                            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>Get Hint</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-
-            </View>
+                <KeyboardSpacer />
+                </ImageBackground>
         );
     }
 }
@@ -293,7 +324,7 @@ const styles = StyleSheet.create({
 
     bottomHalf: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'transparent'
     }
 });
 
