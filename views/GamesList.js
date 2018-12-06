@@ -162,7 +162,7 @@ export default class GamesList extends React.Component {
                                                 if (item === "Tap'pa Tap") {
                                                     navigate('Options')
                                                 } else if (item === "Connect4") {
-                                                    navigate('Connect4')
+                                                    navigate('Options', {game:'Connect4'})
                                                 } else if (item === "Tic Tac Toe") {
                                                     navigate('TicTacToe')
                                                 } else {

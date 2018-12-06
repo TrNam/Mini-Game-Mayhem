@@ -20,9 +20,16 @@ export default class Options extends React.Component {
     }
 
     render() {
+        const {navigation} = this.props;
+        const game = navigation.getParam('game', 'Home');
         return (
             <View style={styles.container}>
-                <View style={styles.option}>
+                <TouchableOpacity
+                    style={styles.option}
+                    onPress={() => {
+                        this.props.navigation.navigate(game,{Ai:false})
+                    }}
+                >
                 <PixelButton
                     content={'VS Player 2'}
                     buttonWidth={window.height/2.5}
@@ -32,8 +39,13 @@ export default class Options extends React.Component {
                     midColor={'#BA323F'} //or C14955
                     textSize={window.height/25}
                 />
-                </View>
-                <View style={styles.option}>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.option}
+                    onPress={() => {
+                        this.props.navigation.navigate(game,{Ai:true})
+                    }}
+                >
                 <PixelButton
                     content={'VS Computer'}
                     buttonWidth={window.height/2.5}
@@ -43,7 +55,7 @@ export default class Options extends React.Component {
                     midColor={'#BA323F'} //or C14955
                     textSize={window.height/25}
                 />
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }
