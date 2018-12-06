@@ -27,6 +27,7 @@ export default class Landing extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props;
     const { gameStarted } = this.state
     return (
       <ImageBackground
@@ -35,6 +36,21 @@ export default class Landing extends React.Component {
         style={{width:window.width, height:window.height}}
       >
         <View style={styles.container}>
+        <View style={{position:'absolute', left:'2%', bottom:'2%'}}>
+          <TouchableOpacity
+              onPress={() => {
+                  this.props.navigation.navigate('GamesList')
+              }}
+          >
+              <PixelButton
+                  content={'Games List'}
+                  buttonWidth={window.height/6}
+                  buttonHeight={window.height/18}
+                  textSize={window.height/35}
+                  borderWidth={window.height/90}
+              />
+          </TouchableOpacity>
+      </View>
           <Header />
           {
             gameStarted ? (

@@ -8,7 +8,7 @@ import Options from './views/Options';
 import GamesList from './views/GamesList';
 import TicTacToe from './views/TicTacToe/Landing';
 import TapGame from './views/TapGame/TapGame';
-import Connect4 from './views/Connect4';
+import Connect4 from './views/Connect4/Connect4';
 import HangMan from './views/Hangman/HangMan';
 
 

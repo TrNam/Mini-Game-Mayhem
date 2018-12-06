@@ -28,7 +28,7 @@ export default class GamesList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            games:["Tap'pa Tap","Connect4","Tic Tac Toe","Hangman"],
+            games:["TapTapGame","Connect4","Tic Tac Toe","Hangman"],
             isTapPressed: true,
             isCheckerPressed: true,
             isTicPressed: true,
@@ -60,31 +60,50 @@ export default class GamesList extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation
+        const { navigation } = this.props;
         return(
             <ImageBackground
                 source={require('../assets/bg/4.png')}
                 // resizeMode='contain'
                 style={{width:window.width, height:window.height}}
             >
+            <View style={{position:'absolute', left:'2%', top:'2%'}}>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.goBack()
+                    }}
+                >
+                    <PixelButton
+                        content={'Back'}
+                        buttonWidth={window.height/6}
+                        buttonHeight={window.height/18}
+                        textSize={window.height/35}
+                        borderWidth={window.height/90}
+                    />
+                </TouchableOpacity>
+            </View>
             <View style={styles.container}>
                 {this.state.games.map((item, index) => {
-                    if (item === "Tap'pa Tap") {
+                    if (item === "TapTapGame") {
                         currentGame = this.state.isTapPressed
                         currentDropDown = this.state.isDropDownTapPressed
                         currentMoved = 'tap'
-                        test = this.state.isTapMoved
+                        video = require('../assets/GIF/TapGame.gif')
                     } else if (item === "Connect4") {
                         currentGame = this.state.isCheckerPressed
                         currentDropDown = this.state.isDropDownCheckerPressed
                         currentMoved = 'checker'
+                        video = require('../assets/GIF/Connect4.gif')
                     } else if (item === "Tic Tac Toe") {
                         currentGame = this.state.isTicPressed
                         currentDropDown = this.state.isDropDownTicPressed
                         currentMoved = 'tic'
+                        video = require('../assets/GIF/TicTacToe.gif')
                     } else if (item === "Hangman") {
                         currentGame = this.state.isHangPressed
                         currentDropDown = this.state.isDropDownHangPressed
                         currentMoved = 'hang'
+                        video = require('../assets/GIF/Hangman.gif')
                     }
                     return (
                         <TheGame 
@@ -96,7 +115,7 @@ export default class GamesList extends React.Component {
                         <View>
                             <TouchableOpacity
                                 onPress={ async () => {
-                                    if (item === "Tap'pa Tap") {
+                                    if (item === "TapTapGame") {
                                         await this.setState({
                                             isCheckerPressed: !this.state.isCheckerPressed,
                                             isTicPressed: !this.state.isTicPressed,
@@ -144,7 +163,7 @@ export default class GamesList extends React.Component {
                             >
                                 {currentDropDown == true &&
                                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                        <Image style={{height:'90%',resizeMode:'contain'}} source={require('../assets/GIF/Hangman.gif')}/>
+                                        <Image style={{height:'90%',resizeMode:'contain'}} source={video}/>
                                     </View>
                                 }
                                 {currentDropDown == true &&
@@ -152,35 +171,32 @@ export default class GamesList extends React.Component {
                                     
                                     <View style={{position:'absolute'}}>
                                         <CirclePixel
-                                            cirRadius={window.width/8}
-                                            cirColor={'#E07BD2'}
-                                            shadowColor={'#932F86'}
+                                            cirRadius={window.width/5}
+                                            cirColor={'#D88038'}
+                                            shadowColor={'#A13D3B'}
                                         />
                                     </View>
                                     <View style={{position:'absolute'}}>
                                         <TouchableOpacity
                                             onPress = {() => {
-                                                if (item === "Tap'pa Tap") {
+                                                if (item === "TapTapGame") {
                                                     navigate('Options', {game: 'Tap'})
                                                     this.closeEverything()
                                                 } else if (item === "Connect4") {
-                                                    navigate('Options', {game: 'Connect4'})
+                                                    navigate('Connect4')
                                                     this.closeEverything()
                                                 } else if (item === "Tic Tac Toe") {
-                                                    navigate('Options', {game: 'Tic'})
+                                                    navigate('TicTacToe')
                                                     this.closeEverything()
                                                 } else {
-                                                    navigate('Options', {game: 'Hang'})
+                                                    navigate('Hangman')
                                                     this.closeEverything()
                                                 }
                                             }}
                                         >
                                             <TrianglePixel
-                                                triWidth={window.width/18}
-                                                triHeight={window.width/14}
-                                                triColor={'#FFCCF8'}
-                                                triDir={'right'}
-                                                shadowColor={'#932F86'}
+                                                triWidth={window.width/10}
+                                                triHeight={window.width/8}
                                             />
                                         </TouchableOpacity>
                                     </View>

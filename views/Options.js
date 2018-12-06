@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar, View, ImageBackground, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import PixelButton from '../components/PixelButton';
 
+
 const window = Dimensions.get('window')
 
 export default class Options extends React.Component {
@@ -13,6 +14,7 @@ export default class Options extends React.Component {
             vsComp: 'VS Computer',
         }
     }
+
 
     static navigationOptions = {
         header: null
@@ -28,29 +30,29 @@ export default class Options extends React.Component {
                 source={require('../assets/bg/4.png')}
                 style={{width:window.width, height:window.height}}
             >
-            <View style={{position:'absolute', left:'2%', top:'2%'}}>
-                <TouchableOpacity
-                    // onPress={
-                    //     this.props.navigation.navigate('GamesList')
-                    // }
-                >
-                    <PixelButton
-                        content={'Back'}
-                        buttonWidth={window.height/6}
-                        buttonHeight={window.height/18}
-                        textSize={window.height/35}
-                        borderWidth={window.height/90}
-                    />
-                </TouchableOpacity>
-            </View>
             <View style={styles.container}>
+                <View style={{position:'absolute', left:'2%', top:'2%'}}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.goBack()
+                        }}
+                    >
+                        <PixelButton
+                            content={'Back'}
+                            buttonWidth={window.height/6}
+                            buttonHeight={window.height/18}
+                            textSize={window.height/35}
+                            borderWidth={window.height/90}
+                        />
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.option}>
                     <TouchableOpacity
                         onPress = {() => {
                             if (game === "Tap") {
                                 navigate('TapGame', {twoPlayers: true})
-                            } else if (game === "Checkers") {
-                                navigate('Checkers', {twoPlayers: true})
+                            } else if (game === "Connect4") {
+                                navigate('Connect4', {twoPlayers: true})
                             } else if (game === "Tic Tac Toe") {
                                 navigate('TicTacToe', {twoPlayers: true})
                             } else {
@@ -63,6 +65,7 @@ export default class Options extends React.Component {
                             buttonWidth={window.height/2.5}
                             buttonHeight={window.height/8}
                             textSize={window.height/25}
+                            fontType={'munro'}
                         />
                     </TouchableOpacity>
                 </View>

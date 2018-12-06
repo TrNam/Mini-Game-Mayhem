@@ -1,6 +1,8 @@
 import React from 'react';
-import { Alert, Text, View, ListView, StyleSheet, ImageBackground, StatusBar, TextInput, TouchableHighlight, Image , Dimensions} from 'react-native';
+import { Alert, Text, View, ListView, TouchableOpacity, StyleSheet, ImageBackground, StatusBar, TextInput, TouchableHighlight, Image , Dimensions} from 'react-native';
 import SweetAlert from 'react-native-sweet-alert';
+import PixelButton from '../../components/PixelButton'
+
 
 const cols =[[],[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
 	[{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'},{color: 'white'}],
@@ -265,16 +267,31 @@ export default class Connect4 extends React.Component {
     }
 
 	render() {
+		const { navigation } = this.props;
 
 		return (
 			<ImageBackground
-                    source={require('../assets/bg/4.png')}
+                    source={require('../../assets/bg/4.png')}
                     style={{width:window.width, height:window.height}}
-            	>
+            >
 			<View style ={styles.container}>
 				
 				<StatusBar hidden/>
-				
+				<View style={{position:'absolute', left:'50%', top:'50%'}}>
+					<TouchableOpacity
+						onPress={() => {
+							this.props.navigation.navigate('GamesList')
+						}}
+					>
+						<PixelButton
+							content={'Games List'}
+							buttonWidth={window.height/6}
+							buttonHeight={window.height/18}
+							textSize={window.height/35}
+							borderWidth={window.height/90}
+						/>
+					</TouchableOpacity>
+				</View>
 				<View style={styles.col}>
 					<ListView
 					key={this.state.turn}

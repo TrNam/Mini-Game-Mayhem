@@ -8,7 +8,6 @@ import QuitButton from '../../components/QuitButton'
 import TrianglePixel from '../../components/TrianglePixel';
 
 import { Modal, View, Text, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
-import Quit from '../../components/QuitButton';
 
 const window = Dimensions.get('window')
 
@@ -49,10 +48,6 @@ export default class TapGame extends React.Component {
         this.setState({
             menuVisible: !this.state.menuVisible
         })
-    }
-
-    gameIsPaused = () => {
-        clearInterval(compPlays)
     }
 
     gameStartWithComp = () => {
@@ -143,6 +138,11 @@ export default class TapGame extends React.Component {
         const twoPlayers = navigation.getParam('twoPlayers', '????');
         const { navigate } = this.props.navigation
         return(
+            <ImageBackground
+                source={require('../../assets/bg/4.png')}
+                // resizeMode='contain'
+                style={{width:window.width, height:window.height}}
+            >
             <View style={{flex:1}}>
                 <View style={styles.header}>
                     <TouchableOpacity
@@ -285,12 +285,12 @@ export default class TapGame extends React.Component {
                 </View>
                 {this.state.whoWins != '' &&
                     <View style={[styles.menuContainer,{zIndex:98}]}>
-                        <Text style={{fontFamily: 'munro', color:'purple', fontSize:window.height/15, textAlign:'center'}}>{this.state.whoWins}</Text>
+                        <Text style={{fontFamily: 'munro', color:'purple', fontSize:window.height/10, textAlign:'center'}}>{this.state.whoWins}</Text>
                     </View>
                 }
                 {this.state.countDown != '' &&
                 <View style={[styles.menuContainer,{height:window.height, zIndex:100}]}>
-                    <Text style={{color:'purple', fontSize:window.height/15, textAlign:'center'}}>{this.state.countDown}</Text>
+                    <Text style={{fontFamily: 'munro',color:'purple', fontSize:window.height/10, textAlign:'center'}}>{this.state.countDown}</Text>
                 </View>
                 }
                 {this.state.menuVisible &&
@@ -369,6 +369,7 @@ export default class TapGame extends React.Component {
                 </View>
                 }
             </View>
+            </ImageBackground>
         )
     }
 }

@@ -33,7 +33,7 @@ export default class HangMan extends React.Component {
     }
 
     goToMain = () =>{
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('GamesList');
     }
     
 
