@@ -28,7 +28,7 @@ export default class GamesList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            games:["Tap'pa Tap","Checkers","Tic Tac Toe","Hangman"],
+            games:["Tap'pa Tap","Connect4","Tic Tac Toe","Hangman"],
             isTapPressed: true,
             isCheckerPressed: true,
             isTicPressed: true,
@@ -72,7 +72,8 @@ export default class GamesList extends React.Component {
                         currentGame = this.state.isTapPressed
                         currentDropDown = this.state.isDropDownTapPressed
                         currentMoved = 'tap'
-                    } else if (item === "Checkers") {
+                        test = this.state.isTapMoved
+                    } else if (item === "Connect4") {
                         currentGame = this.state.isCheckerPressed
                         currentDropDown = this.state.isDropDownCheckerPressed
                         currentMoved = 'checker'
@@ -105,7 +106,7 @@ export default class GamesList extends React.Component {
                                             isDropDownTapPressed: !this.state.isDropDownTapPressed
                                         })
                                         
-                                    } else if (item === "Checkers") {
+                                    } else if (item === "Connect4") {
                                         this.setState({
                                             isHangPressed: !this.state.isHangPressed,
                                             isTapPressed: !this.state.isTapPressed,
@@ -162,8 +163,8 @@ export default class GamesList extends React.Component {
                                                 if (item === "Tap'pa Tap") {
                                                     navigate('Options', {game: 'Tap'})
                                                     this.closeEverything()
-                                                } else if (item === "Checkers") {
-                                                    navigate('Options', {game: 'Checkers'})
+                                                } else if (item === "Connect4") {
+                                                    navigate('Options', {game: 'Connect4'})
                                                     this.closeEverything()
                                                 } else if (item === "Tic Tac Toe") {
                                                     navigate('Options', {game: 'Tic'})

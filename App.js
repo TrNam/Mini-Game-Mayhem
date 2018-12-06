@@ -8,6 +8,9 @@ import Options from './views/Options';
 import GamesList from './views/GamesList';
 import TicTacToe from './views/TicTacToe/Landing';
 import TapGame from './views/TapGame/TapGame';
+import Connect4 from './views/Connect4';
+import HangMan from './views/Hangman/HangMan';
+
 
 const RootStack = createStackNavigator(
   {
@@ -23,15 +26,21 @@ const RootStack = createStackNavigator(
     GamesList: {
       screen: GamesList
     },
+    Connect4: {
+      screen: Connect4
+    },
     TicTacToe: {
       screen: TicTacToe
     },
     TapGame: {
       screen: TapGame
+    },
+    Hangman : {
+      screen: HangMan
     }
   },
   {
-    initialRouteName: 'GamesList'
+    initialRouteName: 'Intro'
   }
 )
 
